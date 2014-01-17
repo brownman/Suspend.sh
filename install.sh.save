@@ -1,0 +1,8 @@
+
+df#!/bin/bash
+
+pushd `$dirname $0` > /dev/null
+. bashrc.cfg
+link_bashrc
+popd
+
