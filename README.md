@@ -1,3 +1,1 @@
-
-install:
-source config/bashrc.cfg
+my debian machine configuration
