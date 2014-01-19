@@ -5,8 +5,13 @@ path=`dirname $0`
 source $path/cfg/struct.cfg 
 
 if [ "$1" ];then
-eval "$dir_cfg/$1.cfg"
+source "$dir_cfg/$1.cfg"
 else
-ls -1 $dir_cfg | sed 's/.cfg//g'
+files=$(ls -1 $dir_cfg/*.cfg)
+for file in $files
+do
+echo ". $file"
+    . $file
+done
 fi
-
+print_good 'all done'

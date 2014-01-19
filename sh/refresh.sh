@@ -1,10 +1,22 @@
-#!/bin/bash
-path=`dirname $0`
-echo -n '' > $path/tmp.cron
-cat $path/crontab.txt >> $path/tmp.cron
-echo -e "SHELL=${SHELL}\nPATH=${PATH}\n" >> $path/tmp.cron 
+#!/bin/bash -e
+file=$dir_tmp/cron.cfg
+if [ ! -f $file ];then
+	touch $file
+fi
 
-crontab $path/tmp.cron
+echo -n '' > $file
+
+#echo -e "SHELL=${SHELL}\nPATH=${PATH}\n" >> $file 
+echo -e "DISPLAY=${DISPLAY}\nSHELL=${SHELL}\nPATH=${PATH}\n" >> $file 
+cat $dir_txt/crontab.txt >> $file
+cat $file
+
+echo 'update cron ?'
+read answer
+if [ "$answer" = y ];then
+crontab $file
 sudo service cron restart
-echo SHOW:
-crontab -u dao04 -l
+else
+echo "skip updating cron"
+fi
+
