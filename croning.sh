@@ -1,10 +1,14 @@
 #!/bin/bash -e
 
 
-echo "restart $1" | flite &
 
 args="$@"
 path=`dirname $0`
+echo "restart $args" | flite &
+notify-send "restart $args" 
+
+
+
 source $path/cfg/struct.cfg
 
 load_cron_env(){
