@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # about file:
 # plugin:        suspend
 # description:   suspend the computer + limit powering-on to X seconds
@@ -7,7 +7,7 @@
 #. $TIMERTXT_CFG_FILE
 timeout=60
 #$TIMEOUT_LET_ME_SLEEP
-
+env > ~/Desktop/suspend.env.log
 
 
 suspend01(){
@@ -25,7 +25,7 @@ echo start | flite
 xcowsay 'suspend!'
 
     sleep 1
-    res=$( sudo  dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend )
+    res=$( dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend )
     echo "res:  $res"
     local after=`date +%s`
     let elapsed=after-before

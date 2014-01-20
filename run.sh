@@ -11,12 +11,13 @@ source $dir_cfg/colors.cfg
 print_good ls:
 if [ "$1" ];then
 echo "$@" >> $path/.history
-eval "$dir_sh/$1.sh"
+$(eval "$dir_sh/$1.sh" )
+#2>&1 | tee -a $path/.log/errors.log)
 else
 echo "$dir_sh"
 ls -1 $dir_sh | sed 's/.sh//g'
 print_good HISTORY:
-cat $path/.history
+cat $path/.history | tail -7
 
 fi
 
