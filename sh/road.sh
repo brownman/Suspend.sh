@@ -4,13 +4,14 @@
 
 
 path=`dirname $0`
-dir_source=$path/$1
+dir_source=$1
 
 
 str=`echo $dir_source | sed 's/ /_/g'`
-str=`echo $str | sed 's/VIDEO/AUDIO/g'`
-#str=`echo $dir_source | cut -d'/' -f3`
-dir_target=$str
+#str=`echo $str | sed 's/VIDEO/AUDIO/g'`
+str=`echo $str | rev | cut -d'/' -f1 | rev`
+
+dir_target=$pwd/$str
 
 
 type_source=mp4
