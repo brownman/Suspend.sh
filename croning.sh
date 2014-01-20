@@ -17,7 +17,8 @@ source $file_env
 }
 run(){
 load_cron_env
-$dir_root/run.sh "$args"
+cmd="$dir_root/run.sh $args"
+eval "$cmd" 2>$dir_txt/error.txt
 }
 run
 

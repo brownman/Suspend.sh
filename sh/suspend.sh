@@ -9,16 +9,23 @@ timeout=60
 #$TIMEOUT_LET_ME_SLEEP
 
 
-xcowsay 'suspend!'
+
 suspend01(){
+
+echo start | flite
     echo "suspend01().."
     local elapsed=0
     local before=`date +%s`
 
     echo -n "let me sleep timeout -  is:"
     echo "$timeout"
+
+
     sleep 5
-    res=$( dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend )
+xcowsay 'suspend!'
+
+    sleep 1
+    res=$( sudo  dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend )
     echo "res:  $res"
     local after=`date +%s`
     let elapsed=after-before
@@ -33,6 +40,8 @@ suspend01(){
     fi
     #$tasks_sh commitment notebook
     #$tasks_sh commitment task 
+
+echo end | flite
 }
 
 
