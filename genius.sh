@@ -14,7 +14,7 @@ fi
 
 
 run(){
-    echo $level
+    echo "level choosed: $level"
     file_tasks=$path/rooms/room$level.txt
     if [ -f $file_tasks ];then
         while read p
@@ -22,11 +22,10 @@ run(){
             args=( "$p" )
             util=$path/run.sh
             if [ -f "$util" ];then
-                print_status "proccessing:"
                 
 
 cmd="$util ${args[@]}"
-echo "$cmd"
+echo "call: $cmd"
 sleep 1
 eval "$cmd"
             fi

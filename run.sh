@@ -6,7 +6,7 @@ source $dir_cfg/colors.cfg
 source $dir_cfg/funcs.cfg 
 
 tail=7
-print_status "got: $@"
+print_got "got: $@"
 
 
 show_history(){
@@ -39,17 +39,21 @@ help(){
 }
 
 if [ "$1" ];then
+    filename=$1
     if [ "$2" ];then
     shift
         args=( "$@" )
     fi
-    sleep1 5
-    script="$dir_sh/$1.sh" 
+    sleep1 1
+    script="$dir_sh/$filename.sh" 
     if [ -f "$script" ];then
+
         #save command to history
-        echo "$script]] $@" >> $path/.history
+        echo "$script]] ${args[@]}" >> $path/.history
         #execute
-        res=$( $script "${args[@]}" )
+        cmd="$script ${args[@]}"
+        print_call "call: $cmd"
+        $cmd
     else
         print_error "file not found: $script"
         eval  exiting

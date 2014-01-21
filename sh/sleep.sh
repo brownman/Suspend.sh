@@ -1,3 +1,3 @@
 #!/bin/bash
-echo sleeping..
+print_status "sleeping..$@"
 sleep1 $1
