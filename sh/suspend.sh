@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 # about file:
 # plugin:        suspend
 # description:   suspend the computer + limit powering-on to X seconds
@@ -34,7 +34,7 @@ xcowsay 'suspend!'
     if [[ $elapsed -lt $timeout ]];then
         echo "let me sleep for at least $timeout seconds"
         sleep 5
-        suspend01
+        eval suspend01
     else
         echo 'you are free now - act wisely'
     fi
@@ -46,5 +46,5 @@ echo end | flite
 
 
 
-suspend01
+eval suspend01
 

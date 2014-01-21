@@ -1,33 +1,65 @@
 #!/bin/bash -e
 
 path=`dirname $0`
-
 source $dir_base/cfg/struct.cfg 
-
 source $dir_cfg/colors.cfg 
+source $dir_cfg/funcs.cfg 
+
 tail=7
+print_status "got: $@"
 
 
-
-if [ "$1" ];then
-    echo "$@" >> $path/.history
-    cmd="$dir_sh/$1.sh" 
-    if [ -f "$cmd" ];then
-        $(eval "$dir_sh/$1.sh" )
-    fi
-else
+show_history(){
     #2>&1 | tee -a $path/.log/errors.log)
-    print_good "HISTORY($tail):"
+    print_good "show history (+$tail):"
     cat $path/.history | tail -$tail
     echo "$dir_sh"
+}
 
-    print_good ls:
+show_dependencies(){
+    cat $dir_debian/control
+}
+show_options(){
+    print_good "show available scripts:"
     ls -1 $dir_sh | sed 's/.sh//g'
-
-
-    print_status enter file to edit:
+}
+show_edit(){
+    print_status 'enter file to edit:'
     read answer
     line sh $answer
+}
 
+help(){
+    print_error "please supply a script name (+-arguments)"
+    sleep1 2
+#    show_dependencies
+    show_history
+    show_options
+    exit
+}
+
+if [ "$1" ];then
+    if [ "$2" ];then
+    shift
+        args=( "$@" )
+    fi
+    sleep1 5
+    script="$dir_sh/$1.sh" 
+    if [ -f "$script" ];then
+        #save command to history
+        echo "$script]] $@" >> $path/.history
+        #execute
+        res=$( $script "${args[@]}" )
+    else
+        print_error "file not found: $script"
+        eval  exiting
+    fi
+else
+    help
 fi
+
+
+
+
+
 
