@@ -1,6 +1,17 @@
 #!/bin/bash -e
-
+print_got "$@"
 path=`dirname $0`
+filename=''
+args=()
+if [ "$1" ];then
+    filename=$1
+    if [ "$2" ];then
+    shift
+        args=( "$@" )
+    fi
+fi
+
+
 source $dir_base/cfg/struct.cfg 
 source $dir_cfg/colors.cfg 
 source $dir_cfg/funcs.cfg 
@@ -37,33 +48,27 @@ help(){
     show_options
     exit
 }
-
-if [ "$1" ];then
-    filename=$1
-    if [ "$2" ];then
-    shift
-        args=( "$@" )
-    fi
+run(){
     sleep1 1
     script="$dir_sh/$filename.sh" 
     if [ -f "$script" ];then
-
         #save command to history
         echo "$script]] ${args[@]}" >> $path/.history
         #execute
         cmd="$script ${args[@]}"
         print_call "call: $cmd"
-        $cmd
+        res=$( $cmd )
     else
         print_error "file not found: $script"
         eval  exiting
     fi
+}
+
+
+if [ "$filename"  ];then
+    run
 else
     help
 fi
-
-
-
-
 
 

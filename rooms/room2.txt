@@ -1,4 +1,2 @@
-sleep 4
 alive
 sleep 7
-
