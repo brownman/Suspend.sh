@@ -8,11 +8,11 @@ path=`dirname $0`
 dir_source=$1
 
 
-#str=`echo $dir_source | sed 's/ /_/g'`
+str=`echo $dir_source | sed 's/ /_/g'`
 #str=`echo $str | sed 's/VIDEO/AUDIO/g'`
-#str=`echo $str | rev | cut -d'/' -f1 | rev`
+str=`echo $str | rev | cut -d'/' -f1 | rev`
 
-dir_target=$dir_dropbox/AUDIO
+dir_target=$dir_dropbox/AUDIO/$str
 
 
 type_source=mp4
@@ -90,6 +90,6 @@ if [ "$answer" = y ];then
         cat $path/.history
     fi
 else
-    vi $0 &
+   echo line sh road 
 fi
 

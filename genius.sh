@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 path=`dirname $0`
 
@@ -14,21 +14,31 @@ fi
 
 
 run(){
+rounds=1
+
+
+
     echo "level choosed: $level"
     file_tasks=$path/rooms/room$level.txt
     if [ -f $file_tasks ];then
+        print_good "$file_tasks exist!"
+        cat $file_tasks
+        sleep 2
         while read p
         do
+xcowsay "$rounds rounds!"
             args=( "$p" )
             util=$path/run.sh
             if [ -f "$util" ];then
-                
 
-cmd="$util ${args[@]}"
-echo "call: $cmd"
-sleep 1
-eval "$cmd"
+
+                cmd="$util ${args[@]}"
+                echo "call: $cmd"
+                sleep 1
+                eval "$cmd"
             fi
+
+    let 'rounds += 1'
         done < $file_tasks
     else
         print_error "oops, no such file: $file_tasks"
@@ -36,18 +46,6 @@ eval "$cmd"
 
 
 
-}
-
-old(){
-    while true;do
-        str=`date | cut -d' ' -f4`
-        str=`echo "$str" | sed 's/:/_/g'`
-        touch ~/Desktop/suspend_$str.txt
-        echo suspend | flite
-        sleep 10
-        $path/run.sh suspend 
-        sleep 300
-    done
 }
 run
 
