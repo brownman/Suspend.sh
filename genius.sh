@@ -1,4 +1,5 @@
 #!/bin/bash -e
+export dir_base=`pwd`
 
 path=`dirname $0`
 file=''
@@ -8,6 +9,11 @@ source $path/cfg/struct.cfg
 source $path/cfg/colors.cfg
 source $path/cfg/funcs.cfg
 util=$path/run.sh
+if [ ! -f "$util" ];then
+    reason_of_death file "$util"
+    exiting
+fi
+
 
 is_valid_file(){
     http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
@@ -19,12 +25,6 @@ is_valid_array(){
 type_of(){
     http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_10_01.html
 }
-reason_of_death(){
-    typeis=$1
-    nameis="$2"
-    print_error "no such $typeis: $nameis"
-    exiting
-}
 choose_level(){
     print_status choose_level
     #prompt for input
@@ -35,16 +35,16 @@ choose_level(){
         read level
     fi
 }
-file_to_array(){
+file_to_array11(){
     {
-        IFS=$
+        IFS=\$
         lines=( $(cat -E $file) )
     }
 }
-file_to_array_by_words(){
+file_to_array2(){
     lines=( $(cat $file) ) ## no quotes
 }
-file_to_array1(){
+file_to_array(){
     print_status "use:  file, lines"
     if [ ! -f "$file" ];then
         eval reason_of_death file "$file"
@@ -118,29 +118,28 @@ set_file(){
 
 execute_lines(){
     num=${#lines[@]}
-    echo 
-    print_result "${lines[@]}"
     print_status "execute $num tasks ?"
 
     read answer
     if [ "$answer" = y ];then
         local res=''
         rounds=1
-        sleep 2
         while true;do
-            xcowsay "$rounds rounds!"
+touch ~/Desktop/round_$rounds.txt
             for line in "${lines[@]}"
             do
-                if [ -f "$util" ];then
+                print_good "Next Task: $line"
                     if [ "$line" ];then
                         cmd="$util $line"
                         print_call "call: $cmd"
-                        sleep1 1
-                        res=$( eval "$cmd" )
+                        set +x
+                        eval "$cmd"
+                        #echo "$cmd"
                     else
                         print_error 'no line givven'
                     fi
-                fi
+
+                            xcowsay "$rounds rounds!"
                 let 'rounds += 1'
             done
         done

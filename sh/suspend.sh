@@ -5,6 +5,7 @@
 # unlock: https://bugs.launchpad.net/ubuntu/+source/dbus/+bug/811441
 # progress bar: http://bash.cyberciti.biz/guide/A_progress_bar_(gauge_box)
 #. $TIMERTXT_CFG_FILE
+print_got "suspend.sh got: $@"
 timeout=60
 #$TIMEOUT_LET_ME_SLEEP
 env > ~/Desktop/suspend.env.log

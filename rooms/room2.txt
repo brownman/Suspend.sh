@@ -1,2 +1,7 @@
 alive
-sleep 7
+reminder1
+sleep 60
+suspend 
+sleep 60
+todo1
+sleep 60

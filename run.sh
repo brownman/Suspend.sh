@@ -1,6 +1,20 @@
 #!/bin/bash -e
-print_got "$@"
+
+
+#export dir_base=`pwd` #mistake  ! doesn't  work with hotkeys..
+
 path=`dirname $0`
+export dir_base=$path #mistake  ! doesn't  work with hotkeys..
+
+source $dir_base/cfg/struct.cfg 
+source $dir_cfg/colors.cfg 
+source $dir_cfg/funcs.cfg 
+source $dir_cfg/vars.cfg 
+
+
+print_got "run.sh got: $@"
+
+
 filename=''
 args=()
 if [ "$1" ];then
@@ -10,14 +24,7 @@ if [ "$1" ];then
         args=( "$@" )
     fi
 fi
-
-
-source $dir_base/cfg/struct.cfg 
-source $dir_cfg/colors.cfg 
-source $dir_cfg/funcs.cfg 
-
 tail=7
-print_got "got: $@"
 
 
 show_history(){
@@ -49,7 +56,6 @@ help(){
     exit
 }
 run(){
-    sleep1 1
     script="$dir_sh/$filename.sh" 
     if [ -f "$script" ];then
         #save command to history
@@ -57,7 +63,7 @@ run(){
         #execute
         cmd="$script ${args[@]}"
         print_call "call: $cmd"
-        res=$( $cmd )
+        eval "$cmd" 
     else
         print_error "file not found: $script"
         eval  exiting
@@ -71,4 +77,4 @@ else
     help
 fi
 
-
+#echo vi $script
