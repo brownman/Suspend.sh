@@ -8,6 +8,7 @@ plugin_name='todo'
 dir=$dir_workspace/$plugin_name
 file=$dir/$day.txt
 file_tmp=/tmp/todo.txt
+timeout=10
 if [ ! -d "$dir" ];then
     mkdir "$dir"
 fi
@@ -22,7 +23,7 @@ fi
 
 
 run(){
-local line=$(gxmessage -file $file -title 'todo' -timeout 3 -entry -ontop -sticky )
+local line=$(gxmessage -file $file -title 'todo' -timeout $timeout -entry -ontop -sticky )
 update_file "$line" "$file"
 }
 update_file(){

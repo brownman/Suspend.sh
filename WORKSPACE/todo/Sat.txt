@@ -1,0 +1,32 @@
+11:01:04 use trap - with bash_source
+10:59:36 
+10:55:28 $bashsource
+10:54:12 export alias
+10:48:23 
+10:47:05 
+10:33:32 
+10:32:12 
+10:22:32 expand aliases  is cool
+10:21:11 expand aliasses with args?
+10:16:19 
+10:15:01 using tee for doing file: .history
+10:08:56 bash .history .question
+10:07:34 
+10:02:30 make .url and .history available in current dir
+10:00:58 
+09:55:00 
+09:54:13 cool
+09:53:40 finish hotkeys session
+09:48:12 finding more about binding keys
+09:46:52 
+09:41:55 same
+09:40:41 update hotkeys using xbindkey
+09:36:11 
+09:34:51 
+09:28:33 update hotkeys
+09:27:13 ppa for hotkeys
+09:21:18 restart smile
+09:07:22 
+09:06:51 
+09:06:47 do x
+08:57:57 
