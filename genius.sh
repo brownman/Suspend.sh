@@ -1,18 +1,26 @@
 #!/bin/bash -e
-export dir_base=`pwd`
 
-path=`dirname $0`
+export dir_base=`dirname $0`
+#export dir_base=`pwd`
 file=''
 args=$1
 level=0
-source $path/cfg/struct.cfg
-source $path/cfg/colors.cfg
-source $path/cfg/funcs.cfg
-util=$path/run.sh
+source $dir_base/cfg/struct.cfg
+source $dir_base/cfg/colors.cfg
+source $dir_base/cfg/vars.cfg
+util=$dir_base/run.sh
 if [ ! -f "$util" ];then
     reason_of_death file "$util"
     exiting
 fi
+
+folder=~/Desktop/$day 
+if [ ! -d "$folder" ];then
+    mkdir $folder
+else
+    echo "already exist: $folder"
+fi
+
 
 
 is_valid_file(){
@@ -72,43 +80,9 @@ file_to_array(){
 
 }
 
-execute_lines1(){
-    #gxmessage -file $file_workflow "$GXMESSAGET" -title 'ensure this workflow:'
-    local str_file_workflow=$(cat $file)
-    local max=${#lines[@]}
-    local max_efficiency=max
-    count=1
-    local str_tasks=''
-    for line in "${lines[@]}"
-    do
-        notify_send1 'continue on moving your ass around'
-        local str_percent="$count of $max_efficiency"
-        local     action=$( echo "$line" | awk -F '|' '{print $1}' )
-        local     desc=$( echo "$line" | awk -F '|' '{print $2}' )
-
-        #$( messageYN1 "$desc" 'action:'  )
-        #local result=$?
-        local result=$YES
-        if [[ $result -eq $YES ]];then
-            str_tasks="$str_tasks _ $count: $action"
-            notify_send1 "$str_percent"
-            notify_send1 "TASK: $desc"
-            flite "$desc" true 
-            local args=( ${action} )
-            local res1=$(  "${args[@]}" )
-            notify_send1 'next' 'task' 
-            sleep1 60
-            let "count=count+1"
-        else
-            flite 'breaking'
-            break
-        fi
-    done
-    tasker motivation sport
-}
 set_file(){
     print_status "level choosed: $level"
-    file=$path/rooms/room$level.txt
+    file=$dir_base/rooms/room$level.txt
     if [ -f $file ];then
         print_good "$file exist!"
     else
@@ -117,6 +91,7 @@ set_file(){
 }
 
 execute_lines(){
+    local file1=''
     num=${#lines[@]}
     print_status "execute $num tasks ?"
 
@@ -125,21 +100,24 @@ execute_lines(){
         local res=''
         rounds=1
         while true;do
-touch ~/Desktop/round_$rounds.txt
+            file1=$folder/$rounds.txt
+            if [ ! -f $file ];then
+                touch $file1
+            fi
             for line in "${lines[@]}"
             do
                 print_good "Next Task: $line"
-                    if [ "$line" ];then
-                        cmd="$util $line"
-                        print_call "call: $cmd"
-                        set +x
-                        eval "$cmd"
-                        #echo "$cmd"
-                    else
-                        print_error 'no line givven'
-                    fi
+                if [ "$line" ];then
+                    cmd="$util $line"
+                    print_call "call: $cmd"
+                    set +x
+                    eval "$cmd"
+                    #echo "$cmd"
+                else
+                    print_error 'no line givven'
+                fi
 
-                            xcowsay "$rounds rounds!"
+                xcowsay "$rounds rounds!"
                 let 'rounds += 1'
             done
         done

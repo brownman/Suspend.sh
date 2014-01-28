@@ -1,3 +1,57 @@
+16:42:49 br
+16:41:29 
+16:36:24 
+16:35:11 
+14:01:16 
+13:59:59 
+13:56:00 
+13:54:43 
+13:49:45 
+13:48:23 
+13:43:08 nice
+13:41:52 found a solution
+13:37:02 
+13:35:45 wrap errors
+13:31:09 
+13:29:52 solution has found
+13:25:11 
+13:23:54 
+13:17:56 
+13:16:39 
+13:10:04 error trap
+13:08:50 
+13:04:31 
+13:03:11 error reporting
+12:58:16 
+12:56:59 trap error
+12:50:51 
+12:49:33 
+12:45:00 trap error - set in  bashrc
+12:43:41 
+12:38:01 catch on line number
+12:36:40 trap errors and goto line
+12:30:01 
+12:28:42 
+12:23:09 
+12:21:50 
+12:17:08 show_self
+12:15:53 magnify to small - really
+12:10:26 
+12:09:09 tail dmesg
+12:04:00 same
+12:02:44 must bind keys
+11:54:26 
+11:53:06 hotkeys - deb
+11:47:44 
+11:46:35 
+11:42:21  
+11:41:02 
+11:35:55 
+11:35:12 
+11:34:40 
+11:30:06 
+11:28:49 nice
+11:24:53 
 11:01:04 use trap - with bash_source
 10:59:36 
 10:55:28 $bashsource

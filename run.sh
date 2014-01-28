@@ -3,13 +3,17 @@
 
 #export dir_base=`pwd` #mistake  ! doesn't  work with hotkeys..
 
+
+#path=`pwd`
 path=`dirname $0`
 export dir_base=$path #mistake  ! doesn't  work with hotkeys..
 
 source $dir_base/cfg/struct.cfg 
 source $dir_cfg/colors.cfg 
-source $dir_cfg/funcs.cfg 
+source $dir_cfg/bashrc.cfg 
+
 source $dir_cfg/vars.cfg 
+source $dir_cfg/funcs.cfg 
 
 
 print_got "run.sh got: $@"

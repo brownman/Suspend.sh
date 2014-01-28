@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash 
 # about file:
 # plugin:        suspend
 # description:   suspend the computer + limit powering-on to X seconds
@@ -6,7 +6,7 @@
 # progress bar: http://bash.cyberciti.biz/guide/A_progress_bar_(gauge_box)
 #. $TIMERTXT_CFG_FILE
 print_got "suspend.sh got: $@"
-timeout=60
+timeout=${1-60}
 #$TIMEOUT_LET_ME_SLEEP
 env > ~/Desktop/suspend.env.log
 
@@ -26,7 +26,7 @@ echo start | flite
 xcowsay 'suspend!'
 
     sleep 1
-    res=$( dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend )
+    res=$( dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend 2>/dev/null )
     echo "res:  $res"
     local after=`date +%s`
     let elapsed=after-before

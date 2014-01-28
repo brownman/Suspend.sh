@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 #name: update todo list 
 #description:  pop-up a dialog wich consist of 2 boxes: 1.for showing the usage history, and , 2.a input box
 #depend-gui: gxmessage
@@ -14,34 +14,41 @@ if [ ! -d "$dir" ];then
 fi
 
 if [ ! -f "$file" ];then
-touch $file
+    touch $file
 fi
 if [ ! -f "$file_tmp" ];then
-touch $file_tmp
+    touch $file_tmp
 fi
 
 
 
 run(){
-local line=$(gxmessage -file $file -title 'todo' -timeout $timeout -entry -ontop -sticky )
-update_file "$line" "$file"
+    local line=$( gxmessage -file $file -title 'todo' -timeout $timeout -entry -ontop -sticky )
+    update_file "$line" "$file"
 }
 update_file(){
-local line="$1"
-local file=$2
+    local line="$1"
+    local file=$2
 
-local time_stamp=`date | cut -d' ' -f4`
+    local time_stamp=`date | cut -d' ' -f4`
 
 
-
-if [ "$line" = delete ];then
-echo -n '' > $file
-else
-tac $file > $file_tmp
-#
-echo "$time_stamp $line" >> $file_tmp
-tac $file_tmp > $file
-fi
+    if [ "$line" ];then
+        #str=`echo "$line" | sed 's/ /_/g'`
+        #file1="~/Desktop/$rounds.txt"
+        #echo "$str" >> "$file1"
+        if [ "$line" = delete ];then
+            echo -n '' > $file
+        else
+            tac $file > $file_tmp
+            #
+            echo "$time_stamp $line" >> $file_tmp
+            tac $file_tmp > $file
+            price 60
+        fi
+    else
+        unprice
+    fi
 }
 
 
